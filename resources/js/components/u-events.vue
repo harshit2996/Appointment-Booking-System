@@ -19,7 +19,13 @@
       <v-data-table
         :headers="headers"
         :items="events"
-      ></v-data-table>
+      >
+      <template v-slot:item.action="{ item }">
+        <v-icon small class="mr-2" @click="showEvent(item)">mdi-eye</v-icon>
+        <v-icon small class="mr-2" @click="editEvent(item)">mdi-pencil</v-icon>
+        <v-icon small class="mr-2" @click="deleteEvent(item)">mdi-delete</v-icon>
+      </template>
+    </v-data-table>
     </v-card-text>
   </v-card>
 </template>
@@ -37,10 +43,8 @@
             { text: 'Date', value: 'date' },
             { text: 'Description', value: 'event_description'},
             { text: 'Slot', value: 'slot'},
-
-
+            { text: 'Actions', value: 'action'},
           ],
-          // timeSlot:'',
           events:[],
           slots: [
             {text:'10 am - 11 am',value:1},
@@ -61,16 +65,48 @@
     },
     methods:{
         loadData:function(){
+        this.events=[]
         axios.get('api/events')
         .then(res=>{
             
-            if(res.status==200){
-            this.events=res.data.data;
-            // console.log(this.users);
-            }
+          if(res.status==200){
+            let Events=res.data.data;
+
+            Events.forEach(event => {
+              this.slots.forEach(slot => {
+                if(Number(event.slot)==(slot.value)){
+                  event.slot = slot.text
+                  this.events.push(event)
+                }
+              });            
+            });
+          }
+
         }).catch(err=>{
             console.log(err);
         });
+      },
+
+      showEvent(item){
+          console.log(item);
+                          
+      },
+      
+      editEvent(item){
+          console.log(item); 
+            
+      },
+
+      deleteEvent(item){
+          
+      console.log(item);
+      axios.delete('api/events/'+String(item.id))
+        .then(res=>{
+            window.location.reload();
+        })
+        .catch(err=>{
+            console.log(err);    
+        });  
       },
     }
   }

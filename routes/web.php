@@ -28,7 +28,7 @@ Route::group(['middleware' => ['admin']], function(){
 });
 
 Route::group(['middleware' => ['user']], function(){
-    Route::get('/{name}', 'UserController@construct');
+    Route::get('/{name}',['uses'=> 'UserController@construct']);
 
 });
 Route::get('api/events', 'EventsController@construct');

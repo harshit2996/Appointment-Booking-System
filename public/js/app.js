@@ -2043,15 +2043,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2481,10 +2472,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      valid: true,
       dialog: false,
+      menu2: false,
       formData: {
         name: "",
         text: "",
@@ -2492,28 +2541,28 @@ __webpack_require__.r(__webpack_exports__);
         date: ""
       },
       items: [{
-        text: '10 - 11 am',
+        text: '10 am - 11 am',
         value: 1
       }, {
-        text: '11 - 12 am',
+        text: '11 am - 12 am',
         value: 2
       }, {
-        text: '12 - 1 pm',
+        text: '12 nn - 01 pm',
         value: 3
       }, {
-        text: '1 - 2 pm',
+        text: '01 pm - 02 pm',
         value: 4
       }, {
-        text: '2 - 3 pm',
+        text: '02 pm - 03 pm',
         value: 5
       }, {
-        text: '3 - 4 pm',
+        text: '03 pm - 04 pm',
         value: 6
       }, {
-        text: '4 - 5 pm',
+        text: '04 pm - 05 pm',
         value: 7
       }, {
-        text: '5 - 6 pm',
+        text: '05 pm - 06 pm',
         value: 8
       }],
       disabledItems: [],
@@ -2537,6 +2586,10 @@ __webpack_require__.r(__webpack_exports__);
     this.loadData();
   },
   methods: {
+    allowedDates: function allowedDates(val) {
+      // console.log(val)
+      return parseInt(val.split('-')[2], 10) % 2 === 0;
+    },
     create: function create() {
       axios.post('api/events', this.formData).then(function (response) {
         window.location.reload();
@@ -2548,6 +2601,8 @@ __webpack_require__.r(__webpack_exports__);
     datepick: function datepick() {
       var _this2 = this;
 
+      // this.allowedDates()
+      // console.log(this.formData.date)
       this.disabledItems = [];
       this.events.forEach(function (event) {
         if (event.date == _this2.formData.date) {
@@ -2566,6 +2621,12 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+    validate: function validate() {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
+        this.create();
+      }
     }
   }
 });
@@ -2729,6 +2790,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2746,8 +2813,10 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: 'Slot',
         value: 'slot'
+      }, {
+        text: 'Actions',
+        value: 'action'
       }],
-      // timeSlot:'',
       events: [],
       slots: [{
         text: '10 am - 11 am',
@@ -2783,10 +2852,34 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
+      this.events = [];
       axios.get('api/events').then(function (res) {
         if (res.status == 200) {
-          _this.events = res.data.data; // console.log(this.users);
+          var Events = res.data.data;
+          Events.forEach(function (event) {
+            _this.slots.forEach(function (slot) {
+              if (Number(event.slot) == slot.value) {
+                event.slot = slot.text;
+
+                _this.events.push(event);
+              }
+            });
+          });
         }
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    showEvent: function showEvent(item) {
+      console.log(item);
+    },
+    editEvent: function editEvent(item) {
+      console.log(item);
+    },
+    deleteEvent: function deleteEvent(item) {
+      console.log(item);
+      axios["delete"]('api/events/' + String(item.id)).then(function (res) {
+        window.location.reload();
       })["catch"](function (err) {
         console.log(err);
       });
@@ -2869,15 +2962,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    source: String
-  },
+  props: ['currentUser', 'source: String'],
   data: function data() {
     return {
       drawer: null,
@@ -2888,17 +2974,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.$vuetify.theme.dark = true;
-    this.componentName = "events-table";
+    this.componentName = "u-events"; // console.log(this.currentUser)
   },
-  // mounted(){
-  //   this.loadData();
-  // },
   methods: {
     Reservations: function Reservations() {
       this.componentName = "calendar";
-    },
-    Users: function Users() {
-      this.componentName = "user-table";
     },
     logout: function logout() {
       axios.post('logout').then(function (response) {
@@ -2907,10 +2987,8 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {});
     },
     dashboard: function dashboard() {
-      this.componentName = "events-table";
-    },
-    loadData: function loadData() {} // window.location='login';
-
+      this.componentName = "u-events";
+    }
   }
 });
 
@@ -39615,28 +39693,28 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-row",
-    { attrs: { justify: "center" } },
+    "v-container",
     [
+      [
+        _c(
+          "v-btn",
+          {
+            attrs: { color: "primary", bottom: "", right: "", absolute: "" },
+            on: {
+              click: function($event) {
+                _vm.dialog = !_vm.dialog
+              }
+            }
+          },
+          [_c("v-icon", [_vm._v("mdi-plus")])],
+          1
+        )
+      ],
+      _vm._v(" "),
       _c(
         "v-dialog",
         {
           attrs: { persistent: "", "max-width": "600px" },
-          scopedSlots: _vm._u([
-            {
-              key: "activator",
-              fn: function(ref) {
-                var on = ref.on
-                return [
-                  _c(
-                    "v-btn",
-                    _vm._g({ attrs: { color: "primary", dark: "" } }, on),
-                    [_vm._v("Book a Slot")]
-                  )
-                ]
-              }
-            }
-          ]),
           model: {
             value: _vm.dialog,
             callback: function($$v) {
@@ -39646,70 +39724,196 @@ var render = function() {
           }
         },
         [
-          _vm._v(" "),
           _c(
-            "v-card",
+            "v-form",
+            {
+              ref: "form",
+              attrs: { "lazy-validation": "" },
+              model: {
+                value: _vm.valid,
+                callback: function($$v) {
+                  _vm.valid = $$v
+                },
+                expression: "valid"
+              }
+            },
             [
-              _c("v-card-title", [
-                _c("span", { staticClass: "headline" }, [
-                  _vm._v("Create Event")
-                ])
-              ]),
-              _vm._v(" "),
               _c(
-                "v-card-text",
+                "v-card",
                 [
+                  _c("v-card-title", [
+                    _c("span", { staticClass: "headline" }, [
+                      _vm._v("Create Event")
+                    ])
+                  ]),
+                  _vm._v(" "),
                   _c(
-                    "v-container",
+                    "v-card-text",
                     [
-                      _c("v-date-picker", {
-                        on: { change: _vm.datepick },
-                        model: {
-                          value: _vm.formData.date,
-                          callback: function($$v) {
-                            _vm.$set(_vm.formData, "date", $$v)
-                          },
-                          expression: "formData.date"
-                        }
-                      }),
-                      _vm._v(" "),
                       _c(
-                        "v-row",
-                        [
-                          _c("v-text-field", {
-                            attrs: { label: "Subject *", required: "" },
-                            model: {
-                              value: _vm.formData.name,
-                              callback: function($$v) {
-                                _vm.$set(_vm.formData, "name", $$v)
-                              },
-                              expression: "formData.name"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-row",
+                        "v-container",
                         [
                           _c(
-                            "v-container",
-                            { attrs: { fluid: "" } },
+                            "v-menu",
+                            {
+                              attrs: {
+                                "close-on-content-click": false,
+                                "nudge-right": 40,
+                                transition: "scale-transition",
+                                "offset-y": "",
+                                "min-width": "290px",
+                                required: ""
+                              },
+                              scopedSlots: _vm._u([
+                                {
+                                  key: "activator",
+                                  fn: function(ref) {
+                                    var on = ref.on
+                                    return [
+                                      _c(
+                                        "v-text-field",
+                                        _vm._g(
+                                          {
+                                            attrs: {
+                                              label: "Picker without buttons",
+                                              "prepend-icon": "mdi-calendar",
+                                              readonly: "",
+                                              rules: [
+                                                function(v) {
+                                                  return (
+                                                    !!v || "Item is required"
+                                                  )
+                                                }
+                                              ],
+                                              required: ""
+                                            },
+                                            model: {
+                                              value: _vm.formData.date,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.formData,
+                                                  "date",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "formData.date"
+                                            }
+                                          },
+                                          on
+                                        )
+                                      )
+                                    ]
+                                  }
+                                }
+                              ]),
+                              model: {
+                                value: _vm.menu2,
+                                callback: function($$v) {
+                                  _vm.menu2 = $$v
+                                },
+                                expression: "menu2"
+                              }
+                            },
                             [
-                              _c("v-textarea", {
-                                attrs: {
-                                  name: "input-7-1",
-                                  filled: "",
-                                  label: "Description",
-                                  "auto-grow": ""
+                              _vm._v(" "),
+                              _c("v-date-picker", {
+                                attrs: { reuired: "" },
+                                on: {
+                                  change: _vm.datepick,
+                                  input: function($event) {
+                                    _vm.menu2 = false
+                                  }
                                 },
                                 model: {
-                                  value: _vm.formData.text,
+                                  value: _vm.formData.date,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.formData, "text", $$v)
+                                    _vm.$set(_vm.formData, "date", $$v)
                                   },
-                                  expression: "formData.text"
+                                  expression: "formData.date"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-row",
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Subject *",
+                                  required: "",
+                                  rules: [
+                                    function(v) {
+                                      return !!v || "Item is required"
+                                    }
+                                  ]
+                                },
+                                model: {
+                                  value: _vm.formData.name,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.formData, "name", $$v)
+                                  },
+                                  expression: "formData.name"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-row",
+                            [
+                              _c(
+                                "v-container",
+                                [
+                                  _c("v-textarea", {
+                                    attrs: {
+                                      filled: "",
+                                      rules: [
+                                        function(v) {
+                                          return !!v || "Item is required"
+                                        }
+                                      ],
+                                      label: "Description",
+                                      "auto-grow": "",
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.formData.text,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.formData, "text", $$v)
+                                      },
+                                      expression: "formData.text"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-row",
+                            [
+                              _c("v-select", {
+                                attrs: {
+                                  items: _vm.computedItems,
+                                  rules: [
+                                    function(v) {
+                                      return !!v || "Item is required"
+                                    }
+                                  ],
+                                  label: "Choose a Slot",
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.formData.choice,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.formData, "choice", $$v)
+                                  },
+                                  expression: "formData.choice"
                                 }
                               })
                             ],
@@ -39719,65 +39923,41 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _c(
-                        "v-row",
-                        [
-                          _c("v-select", {
-                            attrs: {
-                              items: _vm.computedItems,
-                              label: "Choose a Slot",
-                              required: ""
-                            },
-                            model: {
-                              value: _vm.formData.choice,
-                              callback: function($$v) {
-                                _vm.$set(_vm.formData, "choice", $$v)
-                              },
-                              expression: "formData.choice"
-                            }
-                          })
-                        ],
-                        1
-                      )
+                      _c("small", [_vm._v("*indicates required field")])
                     ],
                     1
                   ),
                   _vm._v(" "),
-                  _c("small", [_vm._v("*indicates required field")])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-card-actions",
-                [
-                  _c("v-spacer"),
-                  _vm._v(" "),
                   _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "blue darken-1", text: "" },
-                      on: {
-                        click: function($event) {
-                          _vm.dialog = false
-                        }
-                      }
-                    },
-                    [_vm._v("Close")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "blue darken-1", text: "" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.create($event)
-                        }
-                      }
-                    },
-                    [_vm._v("Save")]
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "mr-4",
+                          attrs: { color: "error" },
+                          on: {
+                            click: function($event) {
+                              _vm.dialog = false
+                            }
+                          }
+                        },
+                        [_vm._v("Close")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "mr-4",
+                          attrs: { disabled: !_vm.valid, color: "success" },
+                          on: { click: _vm.validate }
+                        },
+                        [_vm._v("Save")]
+                      )
+                    ],
+                    1
                   )
                 ],
                 1
@@ -39789,7 +39969,7 @@ var render = function() {
         1
       )
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -39899,7 +40079,58 @@ var render = function() {
         { staticClass: "pt-0" },
         [
           _c("v-data-table", {
-            attrs: { headers: _vm.headers, items: _vm.events }
+            attrs: { headers: _vm.headers, items: _vm.events },
+            scopedSlots: _vm._u([
+              {
+                key: "item.action",
+                fn: function(ref) {
+                  var item = ref.item
+                  return [
+                    _c(
+                      "v-icon",
+                      {
+                        staticClass: "mr-2",
+                        attrs: { small: "" },
+                        on: {
+                          click: function($event) {
+                            return _vm.showEvent(item)
+                          }
+                        }
+                      },
+                      [_vm._v("mdi-eye")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-icon",
+                      {
+                        staticClass: "mr-2",
+                        attrs: { small: "" },
+                        on: {
+                          click: function($event) {
+                            return _vm.editEvent(item)
+                          }
+                        }
+                      },
+                      [_vm._v("mdi-pencil")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-icon",
+                      {
+                        staticClass: "mr-2",
+                        attrs: { small: "" },
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteEvent(item)
+                          }
+                        }
+                      },
+                      [_vm._v("mdi-delete")]
+                    )
+                  ]
+                }
+              }
+            ])
           })
         ],
         1
@@ -39932,6 +40163,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-app",
+    { attrs: { id: "inspire" } },
     [
       _c(
         "v-navigation-drawer",
@@ -39978,7 +40210,10 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c("v-list-item-title", [_vm._v("John Leider")])
+              _c("v-list-item-title", {
+                attrs: { headline: "" },
+                domProps: { innerHTML: _vm._s(_vm.currentUser) }
+              })
             ],
             1
           ),
@@ -40027,25 +40262,6 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-list-item",
-                { attrs: { link: "" }, on: { click: _vm.Users } },
-                [
-                  _c(
-                    "v-list-item-action",
-                    [_c("v-icon", [_vm._v("mdi-account-group")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-item-content",
-                    [_c("v-list-item-title", [_vm._v("Users")])],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-item",
                 { attrs: { link: "" }, on: { click: _vm.logout } },
                 [
                   _c(
@@ -40083,7 +40299,9 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c(_vm.componentName, { tag: "component" })
+          _c(_vm.componentName, { tag: "component" }),
+          _vm._v(" "),
+          _c("event-form")
         ],
         1
       )

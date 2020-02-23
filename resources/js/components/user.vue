@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="inspire">
     <v-navigation-drawer
       app
       fixed
@@ -14,7 +14,7 @@
         <v-list-item-avatar @click.stop="mini = !mini">
           <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
         </v-list-item-avatar>
-        <v-list-item-title>John Leider</v-list-item-title>
+        <v-list-item-title headline v-html="currentUser"></v-list-item-title>
       </v-list-item>
       
       <!-- <v-divider></v-divider> -->
@@ -28,6 +28,7 @@
             <v-list-item-title>Dashboard</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        
         <v-list-item link @click="Reservations">
           <v-list-item-action>
             <v-icon>mdi-calendar</v-icon>
@@ -36,14 +37,7 @@
             <v-list-item-title >Reservations</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link @click="Users">
-          <v-list-item-action>
-            <v-icon>mdi-account-group</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title >Users</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+       
         <v-list-item link @click="logout">
           <v-list-item-action>
             <v-icon>mdi-logout-variant</v-icon>
@@ -60,6 +54,7 @@
         <v-toolbar-items></v-toolbar-items>
       </v-toolbar>
       <component v-bind:is="componentName" ></component>
+      <event-form></event-form>
     </v-content>
 
   </v-app>
@@ -69,9 +64,10 @@
 
 <script>
 export default {
-  props: {
-    source: String,
-  },
+  props: [
+    'currentUser',
+    'source: String',
+  ],
   data: () => ({
     drawer: null,
     mini:true,
@@ -80,13 +76,11 @@ export default {
   }),
   created () {
     this.$vuetify.theme.dark = true;
-    this.componentName="events-table"
-
+    this.componentName="u-events"
+    // console.log(this.currentUser)
   },
   
-  // mounted(){
-  //   this.loadData();
-  // },
+  
 
   
   methods:{
@@ -95,9 +89,7 @@ export default {
       this.componentName="calendar"
     },
 
-    Users(){
-      this.componentName="user-table"
-    },
+    
     logout(){
       axios.post('logout').then(response => {
           console.log(response.status);
@@ -107,13 +99,9 @@ export default {
       });
     },
     dashboard(){
-      this.componentName="events-table"
+      this.componentName="u-events"
     },
-    loadData(){
-
-    }
-      // window.location='login';
-    },
+  }
 
   
 

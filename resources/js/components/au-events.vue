@@ -4,18 +4,9 @@
     :items="events"
   >
     <template v-slot:item.action="{ item }">
-      <!-- <v-icon
-        small
-        class="mr-2"
-        @click="editItem(item)"        
-      >
-        mdi-pencil
-      </v-icon> -->
       <v-icon small class="mr-2" @click="showEvent(item)">mdi-eye</v-icon>
       <v-icon small class="mr-2" @click="editEvent(item)">mdi-pencil</v-icon>
       <v-icon small class="mr-2" @click="deleteEvent(item)">mdi-delete</v-icon>
-
-
     </template>
     
 

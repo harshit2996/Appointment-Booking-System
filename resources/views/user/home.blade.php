@@ -21,12 +21,8 @@
 </head>
 <body>
   <div id="app">
-  <v-app id="inspire">
-    <user></user>
-    <!-- <v-content>
-      @yield('content')
-    </v-content> -->
-  </v-app>
+    <user v-bind:current-user='{!! json_encode($name) !!}'>></user>
+
   </div>
 </body>
 </html>
