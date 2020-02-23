@@ -22,7 +22,7 @@
 <body>
   <div id="app">
   <v-app id="inspire">
-    <app></app>
+    <admin></admin>
     <!-- <v-content>
       @yield('content')
     </v-content> -->
