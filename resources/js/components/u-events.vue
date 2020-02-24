@@ -1,33 +1,34 @@
 <template>
+  <v-container>
+    <component v-if="dvalue" :selEvent="selectedEvent" :dvalue.sync="dvalue" :is="comp"></component>
     <v-card
-    class="mt-12 mx-auto"
-    max-width="80%"
-    
-  >
-    <v-sheet
-      class="v-sheet--offset mx-auto"
-      color="green"
-      elevation="5"
-      height="auto"
-      max-width="calc(100% - 32px)" 
-    >
-      <p class="text-center display-1">Your Appointments</p>
-      
-    </v-sheet>
-
-    <v-card-text class="pt-0">
-      <v-data-table
-        :headers="headers"
-        :items="events"
+      class="mt-12 mx-auto"
+      max-width="80%"
       >
-      <template v-slot:item.action="{ item }">
-        <v-icon small class="mr-2" @click="showEvent(item)">mdi-eye</v-icon>
-        <v-icon small class="mr-2" @click="editEvent(item)">mdi-pencil</v-icon>
-        <v-icon small class="mr-2" @click="deleteEvent(item)">mdi-delete</v-icon>
-      </template>
-    </v-data-table>
-    </v-card-text>
-  </v-card>
+      <v-sheet
+        class="v-sheet--offset mx-auto"
+        color="green"
+        elevation="5"
+        height="auto"
+        max-width="calc(100% - 32px)">
+        <p class="text-center display-1">Your Appointments</p>
+        
+      </v-sheet>
+
+      <v-card-text class="pt-0">
+        <v-data-table
+          :headers="headers"
+          :items="events">
+          <template v-slot:item.action="{ item }">
+            <v-icon small class="mr-2" @click="showEvent(item)">mdi-eye</v-icon>
+            <v-icon small class="mr-2" @click="editEvent(item)">mdi-pencil</v-icon>
+            <v-icon small class="mr-2" @click="deleteEvent(item)">mdi-delete</v-icon>
+          </template>
+        </v-data-table>
+      </v-card-text>
+    </v-card>
+  </v-container>
+  
 </template>
 
 <script>
@@ -42,7 +43,7 @@
             },
             { text: 'Date', value: 'date' },
             { text: 'Description', value: 'event_description'},
-            { text: 'Slot', value: 'slot'},
+            { text: 'Slot', value: 'slot.text'},
             { text: 'Actions', value: 'action'},
           ],
           events:[],
@@ -56,7 +57,9 @@
             {text:'04 pm - 05 pm',value:7},
             {text:'05 pm - 06 pm',value:8},
           ],
+          dvalue:false,
 
+          selectedEvent:[],
         }
       },
 
@@ -64,7 +67,8 @@
         this.loadData();
     },
     methods:{
-        loadData:function(){
+
+      loadData:function(){
         this.events=[]
         axios.get('api/events')
         .then(res=>{
@@ -75,7 +79,7 @@
             Events.forEach(event => {
               this.slots.forEach(slot => {
                 if(Number(event.slot)==(slot.value)){
-                  event.slot = slot.text
+                  event.slot = slot
                   this.events.push(event)
                 }
               });            
@@ -93,20 +97,22 @@
       },
       
       editEvent(item){
-          console.log(item); 
-            
+          this.dvalue=!this.dvalue
+          this.selectedEvent=item
+          // console.log(this.dvalue, this.selectedEvent)
+          this.comp="event-edit"            
       },
 
       deleteEvent(item){
           
-      console.log(item);
-      axios.delete('api/events/'+String(item.id))
-        .then(res=>{
-            window.location.reload();
-        })
-        .catch(err=>{
-            console.log(err);    
-        });  
+        console.log(item);
+        axios.delete('api/events/'+String(item.id))
+          .then(res=>{
+              window.location.reload();
+          })
+          .catch(err=>{
+              console.log(err);    
+          });  
       },
     }
   }

@@ -94,9 +94,16 @@ class EventsController extends Controller
      * @param  \App\Events  $events
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Events $events)
+    public function update($id,Request $r, Events $events)
     {
-        //
+        // dd($r->choice['value']);
+        $e=$events->find($id);
+        $e->event_name = $r->name;
+        $e->event_description = $r->text;
+        $e->slot=$r->choice['value'];
+        $e->date=$r->date;
+        $e->save();
+
     }
 
     /**
@@ -109,5 +116,9 @@ class EventsController extends Controller
     {   
         $events=new Events;
         $events->find($event_id)->delete();
+    }
+
+    public function allevents(){
+        return EventsResource::collection(Events::all());
     }
 }

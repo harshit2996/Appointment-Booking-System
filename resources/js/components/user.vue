@@ -8,18 +8,19 @@
       :mini-variant.sync="mini"
       permanent
       
-    > 
-      <!-- <v-divider></v-divider>       -->
-      <v-list-item class="px-2">
-        <v-list-item-avatar @click.stop="mini = !mini">
-          <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
-        </v-list-item-avatar>
-        <v-list-item-title headline v-html="currentUser"></v-list-item-title>
-      </v-list-item>
-      
-      <!-- <v-divider></v-divider> -->
-      
+      > 
       <v-list dense>
+        <v-list-item class="px-2">
+          <v-list-item-avatar @click.stop="mini = !mini">
+            <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+          </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title  v-html="currentUser"></v-list-item-title>
+        </v-list-item-content>
+        </v-list-item>
+        <v-divider></v-divider>      
+
+
         <v-list-item link @click="dashboard">
           <v-list-item-action>
             <v-icon>mdi-view-dashboard</v-icon>
@@ -46,14 +47,22 @@
             <v-list-item-title>Logout</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-    </v-list>
+      </v-list>
     </v-navigation-drawer>
+    
     <v-content>
       <v-toolbar dense>
         <v-toolbar-title>Dashboard</v-toolbar-title>
-        <v-toolbar-items></v-toolbar-items>
+        
+          <v-spacer></v-spacer>
+          <theme></theme>
+          <v-btn icon>
+            <v-icon @click="logout">mdi-logout-variant</v-icon>
+          </v-btn>
       </v-toolbar>
+      
       <component v-bind:is="componentName" ></component>
+      
       <event-form></event-form>
     </v-content>
 

@@ -33,13 +33,14 @@ export default new Vuetify(opts)
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('admin', require('./components/admin.vue').default);
 Vue.component('user', require('./components/user.vue').default);
+Vue.component('theme', require('./components/theme.vue').default);
 
 Vue.component('user-table', require('./components/usertable.vue').default);
 Vue.component('events-table', require('./components/events-table.vue').default);
 Vue.component('u-events', require('./components/u-events.vue').default);
 Vue.component('au-events', require('./components/au-events.vue').default);
 Vue.component('event-form', require('./components/event-form.vue').default);
-
+Vue.component('event-edit', require('./components/event-edit.vue').default);
 Vue.component('calendar', require('./components/calendar.vue').default);
 
 

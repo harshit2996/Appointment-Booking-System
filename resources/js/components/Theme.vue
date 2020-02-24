@@ -1,17 +1,11 @@
 <template>
-  <!-- <v-card dark> -->
-    <!-- <v-toolbar
-      color="primary"
-      flat
-    > -->
       <v-switch
         v-model="$vuetify.theme.dark"
         hide-details
         inset
-        label="Theme Dark"
+        class="mx-auto"
       ></v-switch>
-    <!-- </v-toolbar>       -->
-  <!-- </v-card> -->
+    
 </template>
 
 <script>
