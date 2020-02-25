@@ -30,14 +30,14 @@
           </v-list-item-content>
         </v-list-item>
         
-        <v-list-item link @click="Reservations">
+        <!-- <v-list-item link @click="Reservations">
           <v-list-item-action>
             <v-icon>mdi-calendar</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title >Reservations</v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> -->
        
         <v-list-item link @click="logout">
           <v-list-item-action>
@@ -55,10 +55,13 @@
         <v-toolbar-title>Dashboard</v-toolbar-title>
         
           <v-spacer></v-spacer>
-          <theme></theme>
+          <v-btn icon>
+            <v-icon filled fab @click="logout">mdi-plus</v-icon>
+          </v-btn>
           <v-btn icon>
             <v-icon @click="logout">mdi-logout-variant</v-icon>
           </v-btn>
+          <theme></theme>
       </v-toolbar>
       
       <component v-bind:is="componentName" ></component>

@@ -3281,6 +3281,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['currentUser', 'source: String'],
   data: function data() {
@@ -40936,25 +40939,6 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-list-item",
-                { attrs: { link: "" }, on: { click: _vm.Reservations } },
-                [
-                  _c(
-                    "v-list-item-action",
-                    [_c("v-icon", [_vm._v("mdi-calendar")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-item-content",
-                    [_c("v-list-item-title", [_vm._v("Reservations")])],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-item",
                 { attrs: { link: "" }, on: { click: _vm.logout } },
                 [
                   _c(
@@ -40989,7 +40973,21 @@ var render = function() {
               _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
-              _c("theme"),
+              _c(
+                "v-btn",
+                { attrs: { icon: "" } },
+                [
+                  _c(
+                    "v-icon",
+                    {
+                      attrs: { filled: "", fab: "" },
+                      on: { click: _vm.logout }
+                    },
+                    [_vm._v("mdi-plus")]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
                 "v-btn",
@@ -41000,7 +40998,9 @@ var render = function() {
                   ])
                 ],
                 1
-              )
+              ),
+              _vm._v(" "),
+              _c("theme")
             ],
             1
           ),
