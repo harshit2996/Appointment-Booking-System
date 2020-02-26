@@ -44,6 +44,14 @@
             <v-list-item-title >Users</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item link @click="chat">
+          <v-list-item-action>
+            <v-icon>mdi-chat</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Live Chat</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item link @click="logout">
           <v-list-item-action>
             <v-icon>mdi-logout-variant</v-icon>
@@ -80,7 +88,7 @@ export default {
   }),
   created () {
     this.$vuetify.theme.dark = true;
-    this.componentName="events-table"
+    this.componentName="admin-chat"
 
   },
   
@@ -111,13 +119,13 @@ export default {
     },
     loadData(){
 
-    }
-      // window.location='login';
     },
-
-  
-
+    chat(){
+      console.log('admin-chat')
+      this.componentName="admin-chat"
+    }, 
   }
+}
 </script>
 
 <style>

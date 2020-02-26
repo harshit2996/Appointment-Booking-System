@@ -33,10 +33,16 @@
   
 <script type="text/javascript">
     var i = 0;
+    window.Echo.channel('admin-channel')
+      .listen('.AdminEvent', (data) => {
+        i++;
+        $("#notification").append('<p>'+data.title+'</p>');
+    });
     window.Echo.channel('user-channel')
       .listen('.UserEvent', (data) => {
         i++;
-        $("#notification").append('<div class="alert alert-success">'+i+'.'+data.title+'</div>');
+        $("#notification").append('<p align="right">'+data.title+'</p>');
+
     });
 </script>
 </html>

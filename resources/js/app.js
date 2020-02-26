@@ -10,6 +10,9 @@ window.Vue = require('vue');
 
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+// import Chat from 'vue-beautiful-chat'
+
+// Vue.use(Chat)
 
 Vue.use(Vuetify)
 
@@ -33,7 +36,8 @@ Vue.component('admin', require('./components/admin.vue').default);
 Vue.component('user', require('./components/user.vue').default);
 Vue.component('theme', require('./components/theme.vue').default);
 Vue.component('chat', require('./components/chat.vue').default);
-
+Vue.component('chat-box', require('./components/chat-box.vue').default);
+Vue.component('admin-chat', require('./components/admin-chat.vue').default);
 Vue.component('user-table', require('./components/usertable.vue').default);
 Vue.component('events-table', require('./components/events-table.vue').default);
 Vue.component('u-events', require('./components/u-events.vue').default);
@@ -66,4 +70,5 @@ Vue.config.warnHandler = function (msg, vm, trace) {
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
-});
+    // chat : new Chat(),
+  });

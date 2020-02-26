@@ -39,7 +39,7 @@ export default {
     send(){
       console.log(this.text)
       
-      axios.get('t/'+this.text)
+      axios.get('t/admin/'+this.text)
       .then(res=>{
         // console.log(res);
         this.text=''
@@ -66,6 +66,6 @@ export default {
     height: 100%;
     width:100%;
     overflow: auto;
-    padding-right: 20px;
+    padding: 20px;
  }
 </style>

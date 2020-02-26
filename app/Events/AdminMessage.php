@@ -11,7 +11,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
   
-class SendMessage implements ShouldBroadcastNow
+class AdminMessage implements ShouldBroadcastNow
 {
     use InteractsWithSockets, SerializesModels;
   
@@ -22,9 +22,9 @@ class SendMessage implements ShouldBroadcastNow
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($text)
     {
-  
+        $this->text=$text;
     }
   
     /**
@@ -34,7 +34,7 @@ class SendMessage implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('user-channel');
+        return new Channel('admin-channel');
     }
   
     /**
@@ -44,7 +44,7 @@ class SendMessage implements ShouldBroadcastNow
      */
     public function broadcastAs()
     {
-        return 'UserEvent';
+        return ['AdminEvent'];
     }
     /**
      * The event's broadcast name.
@@ -52,7 +52,8 @@ class SendMessage implements ShouldBroadcastNow
      * @return string
      */
     public function broadcastWith()
-    {
-        return ['title'=>'This notification from Admin'];
+    {   
+        $text=($this->text);
+        return ['title'=>$text];
     }
 }

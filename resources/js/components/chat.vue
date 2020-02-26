@@ -73,6 +73,7 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
+    <v-btn text @click="dialog=!dialog" text-right>Close</v-btn>
   </v-card>
   </v-dialog>
 

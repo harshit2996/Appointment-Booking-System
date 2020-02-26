@@ -31,14 +31,14 @@
           </v-list-item-content>
         </v-list-item>
         
-        <!-- <v-list-item link @click="Reservations">
+        <v-list-item link @click="chat">
           <v-list-item-action>
-            <v-icon>mdi-calendar</v-icon>
+            <v-icon>mdi-chat</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title >Reservations</v-list-item-title>
+            <v-list-item-title >Live Chat</v-list-item-title>
           </v-list-item-content>
-        </v-list-item> -->
+        </v-list-item>
        
         <v-list-item link @click="logout">
           <v-list-item-action>
@@ -67,10 +67,9 @@
       
       <component v-bind:is="componentName" ></component>
       
-      <div id="notification" class="text-center">Notification</div>
+      <!-- <div id="notification" class="text-center">Notification</div> -->
       <event-form></event-form>
       <!-- <chat></chat> -->
-      <chat-box></chat-box>
     </v-content>
 
   </v-app>
@@ -94,14 +93,14 @@
     
     created () {
       this.$vuetify.theme.dark = true;
-      this.componentName="u-events"
+      this.componentName="chat-box"
       // console.log(this.currentUser)
     },
     
     methods:{
 
-      Reservations(){
-        this.componentName="calendar"
+      chat(){
+        this.componentName="chat-box"
       },
       
       logout(){
