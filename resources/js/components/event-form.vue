@@ -4,7 +4,6 @@
   <template>
     <v-btn
         color="primary"
-        bottom
         right
         absolute
         @click="dialog = !dialog"

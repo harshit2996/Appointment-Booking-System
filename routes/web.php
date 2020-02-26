@@ -16,6 +16,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/t', function () {
+    event(new \App\Events\SendMessage());
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -33,3 +37,5 @@ Route::group(['middleware' => ['user']], function(){
 });
 Route::get('api/events', 'EventsController@construct');
 Route::post('api/events','EventsController@store');
+
+

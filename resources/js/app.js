@@ -10,8 +10,6 @@ window.Vue = require('vue');
 
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-  
-
 
 Vue.use(Vuetify)
 
@@ -34,6 +32,7 @@ export default new Vuetify(opts)
 Vue.component('admin', require('./components/admin.vue').default);
 Vue.component('user', require('./components/user.vue').default);
 Vue.component('theme', require('./components/theme.vue').default);
+Vue.component('chat', require('./components/chat.vue').default);
 
 Vue.component('user-table', require('./components/usertable.vue').default);
 Vue.component('events-table', require('./components/events-table.vue').default);
