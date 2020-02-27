@@ -40,14 +40,15 @@
     window.Echo.channel('user-channel')
       .listen('.UserEvent', (data) => {
         i++;
-        $("#notification").append('<p>'+data.title+'</p>');
+        $("#notification").append('<div><div style="display:inline-block; background-color:lightgreen;padding:5px;margin:2px;border-radius:2px">'+data.title+'<div></div>');
     });
     window.Echo.channel('admin-channel')
       .listen('.AdminEvent', (data) => {
         i++;
-        $("#notification").append('<p align="right">'+data.title+'</p>');
+        $("#notification").append('<div align="right"><div style="display:inline-block; background-color:orange;padding:5px;margin:2px;border-radius:2px">'+data.title+'</div></div>');
 
     });
 </script>
+
 </html>
 

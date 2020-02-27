@@ -1,25 +1,56 @@
 <template>
-  <v-card class="mt-12 mx-auto"
-      max-width="30%" color="grey">
-      <v-card-title>Chat</v-card-title>
-      <v-container>
-            <v-col>
-              <v-row>
-                <v-sheet id="sheet" min-height="150px" max-height="400px" width="80%"  >
-                  <div id="notification"></div>
-                </v-sheet>
-              </v-row>
+ 
+  <div align="right">
+    <v-col>
+      <v-btn
+        color="primary"
+        fab
+        right
+        absolute
+        @click="expand = !expand"
+        class="v-btn"
+      >
+        <v-icon>mdi-chat</v-icon>
+      </v-btn>
+    </v-col>
+      
+    <v-col>
+      <v-expand-transition>
+        <v-col class="shrink">
+          <v-card  v-show="expand"
+            max-width="30%"
+            shaped
+            
+            >
+            <v-card-title>Chat</v-card-title>
+              
+            <v-card-text>
+              <v-sheet id="sheet" style="border:solid 1px; min-height:150px; max-height:400px">
+                <div id="notification" align="left"></div>
+              </v-sheet>
+            </v-card-text>
 
-              <v-row>
-                    <v-text-field v-model="text" append-outer-icon="mdi-send" @keydown.enter="send" @click:append-outer="send">
+            <v-card-actions>
+                
+              <v-text-field dense style="margin:0;"
+                outlined
+                v-model="text" 
+                append-icon="mdi-send"
+                @keydown.enter="send" @click:append="send"
+                label="Type your message">
+              </v-text-field>
+          
+            </v-card-actions>
+          
+          </v-card>
+        </v-col>
+        
+      </v-expand-transition>
+    </v-col>
+      
+  </div>
+    <!-- <div class="mx-4 hidden-sm-and-down"></div> -->
 
-                    </v-text-field>
-    
-              </v-row>
-
-            </v-col>
-      </v-container>
-  </v-card>
 </template>
 
 <script>
@@ -28,6 +59,7 @@ export default {
   data:function(){
     return{
       text:"",
+      expand:true,
     }
   },
 
@@ -63,9 +95,7 @@ export default {
   }
 
  #notification{
-    height: 100%;
-    width:100%;
     overflow: auto;
-    padding-right: 20px;
+    padding: 5px;
  }
 </style>

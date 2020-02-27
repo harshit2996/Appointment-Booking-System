@@ -1932,6 +1932,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1943,13 +1949,15 @@ __webpack_require__.r(__webpack_exports__);
     send: function send() {
       var _this = this;
 
-      console.log(this.text);
-      axios.get('t/admin/' + this.text).then(function (res) {
-        // console.log(res);
-        _this.text = '';
-      })["catch"](function (err) {
-        console.log(err);
-      }); // event(new SendMessage(this.text));
+      if (this.text != '') {
+        axios.get('t/admin/' + this.text).then(function (res) {
+          // console.log(res);
+          _this.text = '';
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } // event(new SendMessage(this.text));
+
     }
   }
 });
@@ -1965,6 +1973,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -2512,10 +2524,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      text: ""
+      text: "",
+      expand: true
     };
   },
   mounted: function mounted() {},
@@ -2596,130 +2640,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      valid: true,
-      dialog: false,
-      menu2: false,
-      formData: {
-        name: "",
-        text: "",
-        choice: null,
-        date: ""
-      },
-      items: [{
-        active: true,
-        title: 'Jason Oner',
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
-      }, {
-        active: true,
-        title: 'Ranee Carlson',
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg'
-      }, {
-        title: 'Cindy Baker',
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg'
-      }, {
-        title: 'Ali Connors',
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg'
-      }],
-      items2: [{
-        title: 'Travis Howard',
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg'
-      }]
+      expand: false,
+      expand2: false
     };
-  },
-  computed: {
-    computedItems: function computedItems() {
-      var _this = this;
-
-      return this.items.map(function (item) {
-        return {
-          text: item.text,
-          value: item.value,
-          disabled: _this.disabledItems.includes(item.value)
-        };
-      });
-    }
-  },
-  mounted: function mounted() {
-    this.loadData();
-  },
-  methods: {
-    allowedDates: function allowedDates(val) {
-      // console.log(val)
-      return parseInt(val.split('-')[2], 10) % 2 === 0;
-    },
-    create: function create() {
-      axios.post('api/events', this.formData).then(function (response) {
-        window.location.reload();
-      })["catch"](function (err) {
-        return console.log(err.response);
-      });
-      this.dialog = false;
-    },
-    datepick: function datepick() {
-      var _this2 = this;
-
-      // this.allowedDates()
-      // console.log(this.formData.date)
-      this.disabledItems = [];
-      this.events.forEach(function (event) {
-        if (event.date == _this2.formData.date) {
-          _this2.disabledItems.push(Number(event.slot));
-        }
-      });
-      console.log(this.disabledItems);
-    },
-    loadData: function loadData() {
-      var _this3 = this;
-
-      axios.get('api/events').then(function (res) {
-        if (res.status == 200) {
-          _this3.events = res.data.data;
-        }
-      })["catch"](function (err) {
-        console.log(err);
-      });
-    },
-    validate: function validate() {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true;
-        this.create();
-      }
-    }
   }
 });
 
@@ -3604,6 +3530,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['currentUser', 'source: String'],
   data: function data() {
     return {
+      expand: false,
       drawer: null,
       mini: true,
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -8250,7 +8177,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#sheet::-webkit-scrollbar {display:none;}\n#sheet{\n   overflow:scroll;\n}\n#notification{\n   height: 100%;\n   width:100%;\n   overflow: auto;\n   padding: 20px;\n}\n", ""]);
+exports.push([module.i, "\n#sheet::-webkit-scrollbar {display:none;}\n#sheet{\n   overflow:scroll;\n}\n#notification{\n   height: 100%;\n   width:100%;\n   overflow: auto;\n   padding: 20px;\n   margin:0;\n}\n", ""]);
 
 // exports
 
@@ -8269,7 +8196,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#sheet::-webkit-scrollbar {display:none;}\n#sheet{\n   overflow:scroll;\n}\n#notification{\n   height: 100%;\n   width:100%;\n   overflow: auto;\n   padding-right: 20px;\n}\n", ""]);
+exports.push([module.i, "\n#sheet::-webkit-scrollbar {display:none;}\n#sheet{\n   overflow:scroll;\n}\n#notification{\n   overflow: auto;\n   padding: 5px;\n}\n", ""]);
 
 // exports
 
@@ -39822,75 +39749,60 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-card",
-    {
-      staticClass: "mt-12 mx-auto",
-      attrs: { "max-width": "30%", color: "grey" }
-    },
+    { staticClass: "mt-12 mx-auto", attrs: { "max-width": "30%", shaped: "" } },
     [
       _c("v-card-title", [_vm._v("Chat")]),
       _vm._v(" "),
       _c(
-        "v-container",
+        "v-card-text",
         [
           _c(
-            "v-col",
-            [
-              _c(
-                "v-row",
-                [
-                  _c(
-                    "v-sheet",
-                    {
-                      attrs: {
-                        id: "sheet",
-                        "min-height": "150px",
-                        "max-height": "400px",
-                        width: "80%"
-                      }
-                    },
-                    [_c("div", { attrs: { id: "notification" } })]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-row",
-                [
-                  _c("v-text-field", {
-                    attrs: { "append-outer-icon": "mdi-send" },
-                    on: {
-                      keydown: function($event) {
-                        if (
-                          !$event.type.indexOf("key") &&
-                          _vm._k(
-                            $event.keyCode,
-                            "enter",
-                            13,
-                            $event.key,
-                            "Enter"
-                          )
-                        ) {
-                          return null
-                        }
-                        return _vm.send($event)
-                      },
-                      "click:append-outer": _vm.send
-                    },
-                    model: {
-                      value: _vm.text,
-                      callback: function($$v) {
-                        _vm.text = $$v
-                      },
-                      expression: "text"
-                    }
-                  })
-                ],
-                1
-              )
-            ],
-            1
+            "v-sheet",
+            {
+              staticStyle: {
+                border: "solid 1px",
+                "min-height": "150px",
+                "max-height": "400px"
+              },
+              attrs: { id: "sheet" }
+            },
+            [_c("div", { attrs: { id: "notification", align: "left" } })]
           )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-card-actions",
+        [
+          _c("v-text-field", {
+            staticStyle: { margin: "0" },
+            attrs: {
+              dense: "",
+              outlined: "",
+              "append-icon": "mdi-send",
+              label: "Type your message"
+            },
+            on: {
+              keydown: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.send($event)
+              },
+              "click:append": _vm.send
+            },
+            model: {
+              value: _vm.text,
+              callback: function($$v) {
+                _vm.text = $$v
+              },
+              expression: "text"
+            }
+          })
         ],
         1
       )
@@ -40083,11 +39995,23 @@ var render = function() {
         [
           _c(
             "v-toolbar",
-            { attrs: { dense: "" } },
             [
               _c("v-toolbar-title", [_vm._v("Dashboard")]),
               _vm._v(" "),
-              _c("v-toolbar-items")
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                { attrs: { icon: "" } },
+                [
+                  _c("v-icon", { on: { click: _vm.logout } }, [
+                    _vm._v("mdi-logout-variant")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("theme")
             ],
             1
           ),
@@ -40548,70 +40472,122 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-card",
-    {
-      staticClass: "mt-12 mx-auto",
-      attrs: { "max-width": "30%", color: "grey" }
-    },
+    "div",
+    { attrs: { align: "right" } },
     [
-      _c("v-card-title", [_vm._v("Chat")]),
-      _vm._v(" "),
       _c(
-        "v-container",
+        "v-col",
         [
           _c(
-            "v-col",
+            "v-btn",
+            {
+              staticClass: "v-btn",
+              attrs: { color: "primary", fab: "", right: "", absolute: "" },
+              on: {
+                click: function($event) {
+                  _vm.expand = !_vm.expand
+                }
+              }
+            },
+            [_c("v-icon", [_vm._v("mdi-chat")])],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-col",
+        [
+          _c(
+            "v-expand-transition",
             [
               _c(
-                "v-row",
+                "v-col",
+                { staticClass: "shrink" },
                 [
                   _c(
-                    "v-sheet",
+                    "v-card",
                     {
-                      attrs: {
-                        id: "sheet",
-                        "min-height": "150px",
-                        "max-height": "400px",
-                        width: "80%"
-                      }
-                    },
-                    [_c("div", { attrs: { id: "notification" } })]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-row",
-                [
-                  _c("v-text-field", {
-                    attrs: { "append-outer-icon": "mdi-send" },
-                    on: {
-                      keydown: function($event) {
-                        if (
-                          !$event.type.indexOf("key") &&
-                          _vm._k(
-                            $event.keyCode,
-                            "enter",
-                            13,
-                            $event.key,
-                            "Enter"
-                          )
-                        ) {
-                          return null
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.expand,
+                          expression: "expand"
                         }
-                        return _vm.send($event)
-                      },
-                      "click:append-outer": _vm.send
+                      ],
+                      attrs: { "max-width": "30%", shaped: "" }
                     },
-                    model: {
-                      value: _vm.text,
-                      callback: function($$v) {
-                        _vm.text = $$v
-                      },
-                      expression: "text"
-                    }
-                  })
+                    [
+                      _c("v-card-title", [_vm._v("Chat")]),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-text",
+                        [
+                          _c(
+                            "v-sheet",
+                            {
+                              staticStyle: {
+                                border: "solid 1px",
+                                "min-height": "150px",
+                                "max-height": "400px"
+                              },
+                              attrs: { id: "sheet" }
+                            },
+                            [
+                              _c("div", {
+                                attrs: { id: "notification", align: "left" }
+                              })
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c("v-text-field", {
+                            staticStyle: { margin: "0" },
+                            attrs: {
+                              dense: "",
+                              outlined: "",
+                              "append-icon": "mdi-send",
+                              label: "Type your message"
+                            },
+                            on: {
+                              keydown: function($event) {
+                                if (
+                                  !$event.type.indexOf("key") &&
+                                  _vm._k(
+                                    $event.keyCode,
+                                    "enter",
+                                    13,
+                                    $event.key,
+                                    "Enter"
+                                  )
+                                ) {
+                                  return null
+                                }
+                                return _vm.send($event)
+                              },
+                              "click:append": _vm.send
+                            },
+                            model: {
+                              value: _vm.text,
+                              callback: function($$v) {
+                                _vm.text = $$v
+                              },
+                              expression: "text"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               )
@@ -40648,160 +40624,122 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-container",
+    "v-expansion-panels",
     [
-      [
-        _c(
-          "v-btn",
-          {
-            attrs: { color: "primary", bottom: "", right: "", absolute: "" },
-            on: {
-              click: function($event) {
-                _vm.dialog = !_vm.dialog
-              }
-            }
-          },
-          [_c("v-icon", [_vm._v("mdi-chat")])],
-          1
-        )
-      ],
-      _vm._v(" "),
       _c(
-        "v-dialog",
-        {
-          attrs: { persistent: "", "max-width": "600px" },
-          model: {
-            value: _vm.dialog,
-            callback: function($$v) {
-              _vm.dialog = $$v
-            },
-            expression: "dialog"
-          }
-        },
+        "v-expansion-panel",
         [
           _c(
-            "v-card",
-            { staticClass: "mx-auto", attrs: { "max-width": "500" } },
+            "v-expansion-panel-header",
             [
               _c(
-                "v-toolbar",
-                { attrs: { color: "deep-purple accent-4", dark: "" } },
+                "v-btn",
+                {
+                  staticClass: "v-btn",
+                  attrs: { color: "green", fab: "", right: "", absolute: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.expand = !_vm.expand
+                    }
+                  }
+                },
+                [_c("v-icon", [_vm._v("mdi-chat")])],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-expansion-panel-content",
+            [
+              _c(
+                "v-expand-transition",
                 [
-                  _c("v-app-bar-nav-icon"),
-                  _vm._v(" "),
-                  _c("v-toolbar-title", [_vm._v("New Chat")]),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
                   _c(
-                    "v-btn",
-                    { attrs: { icon: "" } },
-                    [_c("v-icon", [_vm._v("mdi-magnify")])],
+                    "v-col",
+                    { staticClass: "shrink" },
+                    [
+                      _c(
+                        "v-card",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.expand,
+                              expression: "expand"
+                            }
+                          ],
+                          attrs: { "max-width": "30%", color: "green" }
+                        },
+                        [
+                          _c("v-card-title", [_vm._v("Chat")]),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-text",
+                            [
+                              _c("v-sheet", [
+                                _c("div", {
+                                  staticStyle: {
+                                    "min-height": "150px",
+                                    "max-height": "400px"
+                                  },
+                                  attrs: { id: "notification" }
+                                })
+                              ])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-actions",
+                            [
+                              _c("v-text-field", {
+                                staticStyle: { margin: "0" },
+                                attrs: {
+                                  dense: "",
+                                  outlined: "",
+                                  "append-icon": "mdi-send",
+                                  label: "Type your message"
+                                },
+                                on: {
+                                  keydown: function($event) {
+                                    if (
+                                      !$event.type.indexOf("key") &&
+                                      _vm._k(
+                                        $event.keyCode,
+                                        "enter",
+                                        13,
+                                        $event.key,
+                                        "Enter"
+                                      )
+                                    ) {
+                                      return null
+                                    }
+                                    return _vm.send($event)
+                                  },
+                                  "click:append": _vm.send
+                                },
+                                model: {
+                                  value: _vm.text,
+                                  callback: function($$v) {
+                                    _vm.text = $$v
+                                  },
+                                  expression: "text"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
                     1
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list",
-                { attrs: { subheader: "" } },
-                [
-                  _c("v-subheader", [_vm._v("Recent chat")]),
-                  _vm._v(" "),
-                  _vm._l(_vm.items, function(item) {
-                    return _c(
-                      "v-list-item",
-                      { key: item.title },
-                      [
-                        _c(
-                          "v-list-item-avatar",
-                          [_c("v-img", { attrs: { src: item.avatar } })],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-list-item-content",
-                          [
-                            _c("v-list-item-title", {
-                              domProps: { textContent: _vm._s(item.title) }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-list-item-icon",
-                          [
-                            _c(
-                              "v-icon",
-                              {
-                                attrs: {
-                                  color: item.active
-                                    ? "deep-purple accent-4"
-                                    : "grey"
-                                }
-                              },
-                              [_vm._v("mdi-chat_bubble")]
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  })
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c("v-divider"),
-              _vm._v(" "),
-              _c(
-                "v-list",
-                { attrs: { subheader: "" } },
-                [
-                  _c("v-subheader", [_vm._v("Previous chats")]),
-                  _vm._v(" "),
-                  _vm._l(_vm.items2, function(item) {
-                    return _c(
-                      "v-list-item",
-                      { key: item.title },
-                      [
-                        _c(
-                          "v-list-item-avatar",
-                          [_c("v-img", { attrs: { src: item.avatar } })],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-list-item-content",
-                          [
-                            _c("v-list-item-title", {
-                              domProps: { textContent: _vm._s(item.title) }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  })
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: { text: "", "text-right": "" },
-                  on: {
-                    click: function($event) {
-                      _vm.dialog = !_vm.dialog
-                    }
-                  }
-                },
-                [_vm._v("Close")]
               )
             ],
             1
@@ -40810,7 +40748,7 @@ var render = function() {
         1
       )
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []

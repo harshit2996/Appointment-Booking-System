@@ -10891,3 +10891,7 @@ a.text-dark:focus {
   }
 }
 
+*:focus {
+  outline: none !important;
+}
+

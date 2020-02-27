@@ -8,7 +8,7 @@
       :mini-variant.sync="mini"
       permanent
       
-    > 
+      > 
       <!-- <v-divider></v-divider>       -->
       <v-list-item class="px-2">
         <v-list-item-avatar @click.stop="mini = !mini">
@@ -60,12 +60,16 @@
             <v-list-item-title>Logout</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-    </v-list>
+      </v-list>
     </v-navigation-drawer>
     <v-content>
-      <v-toolbar dense>
+      <v-toolbar>
         <v-toolbar-title>Dashboard</v-toolbar-title>
-        <v-toolbar-items></v-toolbar-items>
+        <v-spacer></v-spacer>
+        <v-btn icon>
+          <v-icon @click="logout">mdi-logout-variant</v-icon>
+        </v-btn>
+        <theme></theme>
       </v-toolbar>
       <component v-bind:is="componentName" ></component>
     </v-content>

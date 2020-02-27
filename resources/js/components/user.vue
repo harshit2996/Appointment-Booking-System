@@ -85,6 +85,7 @@
     ],
 
     data: () => ({
+      expand:false,
       drawer: null,
       mini:true,
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -125,5 +126,4 @@
 
 
 <style>
-
 </style>
