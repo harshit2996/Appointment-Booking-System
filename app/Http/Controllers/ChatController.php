@@ -17,7 +17,7 @@ class ChatController extends Controller
         event(new UserMessage($text));
     }
 
-    public function admin($text){
-        event(new AdminMessage($text));
+    public function admin($text,$id){
+        event(new AdminMessage($text,$id));
     }
 }

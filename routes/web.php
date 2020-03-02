@@ -20,9 +20,9 @@ Route::get('/t/{text}', ['uses'=> 'ChatController@user'
     // event(new \App\Events\SendMessage());
 ]);
 
-Route::get('/t/admin/{text}', ['uses'=> 'ChatController@admin'
+Route::get('/t/admin/{id}/{text}', 'ChatController@admin'
     // event(new \App\Events\SendMessage());
-]);
+);
 
 
 Auth::routes();

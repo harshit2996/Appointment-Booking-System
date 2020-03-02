@@ -62,16 +62,23 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    
     <v-content>
-      <v-toolbar>
-        <v-toolbar-title>Dashboard</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon @click="logout">mdi-logout-variant</v-icon>
-        </v-btn>
-        <theme></theme>
-      </v-toolbar>
-      <component v-bind:is="componentName" ></component>
+      
+        <v-toolbar>
+          <v-toolbar-title>Dashboard</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon @click="logout">mdi-logout-variant</v-icon>
+          </v-btn>
+          <theme></theme>
+        </v-toolbar>
+
+      <keep-alive>
+      <component v-if="componentName=='online' && this.users.length >0" :online-users="users" v-bind:is="componentName" ></component>
+        <component v-bind:is="componentName" ></component>
+      </keep-alive>
+
     </v-content>
 
   </v-app>
@@ -85,21 +92,17 @@ export default {
     source: String,
   },
   data: () => ({
+    users:[],
     drawer: null,
     mini:true,
     csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
     componentName:'',
   }),
   created () {
-    this.$vuetify.theme.dark = true;
-    this.componentName="admin-chat"
-
+    this.$vuetify.theme.dark = true
+    this.componentName="online"
+    
   },
-  
-  // mounted(){
-  //   this.loadData();
-  // },
-
   
   methods:{
 
@@ -121,12 +124,8 @@ export default {
     dashboard(){
       this.componentName="events-table"
     },
-    loadData(){
-
-    },
     chat(){
-      console.log('admin-chat')
-      this.componentName="admin-chat"
+      this.componentName="online"
     }, 
   }
 }

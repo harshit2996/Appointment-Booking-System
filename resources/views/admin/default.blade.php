@@ -23,9 +23,6 @@
   <div id="app">
   <v-app id="inspire">
     <admin></admin>
-    <!-- <v-content>
-      @yield('content')
-    </v-content> -->
   </v-app>
   </div>
 </body>
@@ -34,21 +31,5 @@
 </script>
 <script src="//{{ Request::getHost() }}:{{env('LARAVEL_ECHO_PORT')}}/socket.io/socket.io.js"></script>
 <script src="{{ url('/js/laravel-echo-setup.js') }}" type="text/javascript"></script>
-  
-<script type="text/javascript">
-    var i = 0;
-    window.Echo.channel('user-channel')
-      .listen('.UserEvent', (data) => {
-        i++;
-        $("#notification").append('<div><div style="display:inline-block; background-color:lightgreen;padding:5px;margin:2px;border-radius:2px">'+data.title+'<div></div>');
-    });
-    window.Echo.channel('admin-channel')
-      .listen('.AdminEvent', (data) => {
-        i++;
-        $("#notification").append('<div align="right"><div style="display:inline-block; background-color:orange;padding:5px;margin:2px;border-radius:2px">'+data.title+'</div></div>');
-
-    });
-</script>
-
 </html>
 

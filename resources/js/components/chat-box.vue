@@ -25,7 +25,7 @@
             <v-card-title>Chat</v-card-title>
               
             <v-card-text>
-              <v-sheet id="sheet" style="border:solid 1px; min-height:150px; max-height:400px">
+              <v-sheet id="sheet" style="border:solid 1px; min-height:150px; max-height:400px" v-chat-scroll>
                 <div id="notification" align="left"></div>
               </v-sheet>
             </v-card-text>
@@ -69,7 +69,7 @@ export default {
 
   methods:{
     send(){
-      console.log(this.text)
+      // console.log(this.text)
       
       axios.get('t/'+this.text)
       .then(res=>{
@@ -95,7 +95,10 @@ export default {
   }
 
  #notification{
+    height: 100%;
+    width:100%;
     overflow: auto;
-    padding: 5px;
+    padding: 20px;
+    margin:0;
  }
 </style>

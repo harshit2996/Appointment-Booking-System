@@ -24,3 +24,5 @@ Route::get('admin/events','EventsController@index')->name('admin.events');
 Route::get('user/events','EventsController@allevents')->name('user.events');
 
 Route::resource('admin','AdminController');
+
+// Broadcast::routes();

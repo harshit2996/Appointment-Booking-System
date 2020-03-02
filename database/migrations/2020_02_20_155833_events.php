@@ -16,7 +16,7 @@ class Events extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->cascade();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('event_name');
             $table->string('event_description');
             $table->date('date');

@@ -21,7 +21,7 @@
 </head>
 <body>
   <div id="app">
-    <user v-bind:current-user='{!! json_encode($name) !!}'></user>
+    <user v-bind:current-user='{!!json_encode(auth()->user())!!}'></user>
 
   </div>
 </body>
@@ -33,17 +33,17 @@
   
 <script type="text/javascript">
     var i = 0;
-    window.Echo.channel('admin-channel')
+    var id = "{{Auth::id()}}";
+    // console.log(id);
+    window.Echo.private('admin.'+id)
       .listen('.AdminEvent', (data) => {
-        i++;
         $("#notification").append('<div><div style="display:inline-block; background-color:lightgreen;padding:5px;margin:2px;border-radius:2px">'+data.title+'<div></div>');
     });
-    window.Echo.channel('user-channel')
+    window.Echo.private('user.'+id)
       .listen('.UserEvent', (data) => {
-        i++;
         $("#notification").append('<div align="right"><div style="display:inline-block; background-color:orange;padding:5px;margin:2px;border-radius:2px">'+data.title+'</div></div>');
-
     });
+        
 </script>
 
 </html>

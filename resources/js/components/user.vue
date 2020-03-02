@@ -17,7 +17,7 @@
             <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
           </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title  v-html="currentUser"></v-list-item-title>
+          <v-list-item-title  v-html="currentUser.name"></v-list-item-title>
         </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>      
@@ -93,11 +93,14 @@
     }),
     
     created () {
-      this.$vuetify.theme.dark = true;
+      this.$vuetify.theme.dark = true
       this.componentName="chat-box"
-      // console.log(this.currentUser)
     },
-    
+
+    mounted(){
+      Echo.join('online')
+    },
+
     methods:{
 
       chat(){
@@ -117,7 +120,7 @@
         this.componentName="u-events"
       },
     }
-    
+
 
   }
   

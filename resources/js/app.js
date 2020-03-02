@@ -9,10 +9,10 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import Vue from 'vue'
+import VueChatScroll from 'vue-chat-scroll'
 import Vuetify from 'vuetify'
-// import Chat from 'vue-beautiful-chat'
 
-// Vue.use(Chat)
+Vue.use(VueChatScroll)
 
 Vue.use(Vuetify)
 
@@ -45,6 +45,8 @@ Vue.component('au-events', require('./components/au-events.vue').default);
 Vue.component('event-form', require('./components/event-form.vue').default);
 Vue.component('event-edit', require('./components/event-edit.vue').default);
 Vue.component('calendar', require('./components/calendar.vue').default);
+Vue.component('online', require('./components/online.vue').default);
+
 
 
 const ignoreWarnMessage = 'The .native modifier for v-on is only valid on components but it was used on <div>.';

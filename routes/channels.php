@@ -11,6 +11,20 @@
 |
 */
 
+Broadcast::channel('user.{id}', function ($user, $id) {
+    return ((int) $user->id === (int) $id || ($user->isAdmin));
+});
+
+Broadcast::channel('admin.{id}', function ($user, $id) {
+    return ((int) $user->id === (int) $id || ($user->isAdmin));
+});
+
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('online', function ($user) {
+    if (auth()->check()) {
+        return $user->toArray();
+    }
 });

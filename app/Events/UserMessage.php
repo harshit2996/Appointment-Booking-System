@@ -10,6 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+use Auth;
   
 class UserMessage implements ShouldBroadcastNow
 {
@@ -25,6 +26,7 @@ class UserMessage implements ShouldBroadcastNow
     public function __construct($text)
     {
         $this->text=$text;
+        $this->id=Auth::id();
     }
   
     /**
@@ -34,7 +36,8 @@ class UserMessage implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('user-channel');
+        // dd('user.'.$this->id);
+        return new PrivateChannel('user.'.$this->id);
     }
   
     /**
@@ -55,5 +58,10 @@ class UserMessage implements ShouldBroadcastNow
     {   
         $text=($this->text);
         return ['title'=>$text];
+    }
+
+    public function join(User $user)
+    {
+        return $user->id;
     }
 }

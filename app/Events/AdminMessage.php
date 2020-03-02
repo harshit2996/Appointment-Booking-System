@@ -22,9 +22,13 @@ class AdminMessage implements ShouldBroadcastNow
      *
      * @return void
      */
-    public function __construct($text)
+    public function __construct($id,$text)
     {
         $this->text=$text;
+        $this->id=$id;
+
+        // dd($this);
+
     }
   
     /**
@@ -33,8 +37,8 @@ class AdminMessage implements ShouldBroadcastNow
      * @return \Illuminate\Broadcasting\Channel|array
      */
     public function broadcastOn()
-    {
-        return new Channel('admin-channel');
+    {   
+        return new PrivateChannel('admin.'.$this->id);
     }
   
     /**
