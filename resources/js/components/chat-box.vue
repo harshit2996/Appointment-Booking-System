@@ -10,46 +10,47 @@
         @click="expand = !expand"
         class="v-btn"
       >
-        <v-icon>mdi-chat</v-icon>
+        <v-icon v-if="expand">mdi-close</v-icon>
+        <v-icon v-else>mdi-chat</v-icon>
       </v-btn>
     </v-col>
-      
+    
     <v-col>
-      <v-expand-transition>
-        <v-col class="shrink">
-          <v-card  v-show="expand"
-            max-width="30%"
-            shaped
-            
-            >
-            <v-card-title>Chat</v-card-title>
-              
-            <v-card-text>
-              <v-sheet id="sheet" style="border:solid 1px; min-height:150px; max-height:400px" v-chat-scroll>
-                <div id="notification" align="left"></div>
-              </v-sheet>
-            </v-card-text>
+    <v-dialog v-model="expand"  max-width="20%" max-height="auto">  
+      <v-card  v-show="expand"
+        style="z-index:20"
 
-            <v-card-actions>
-                
-              <v-text-field dense style="margin:0;"
-                outlined
-                v-model="text" 
-                append-icon="mdi-send"
-                @keydown.enter="send" @click:append="send"
-                label="Type your message">
-              </v-text-field>
+        >
+        <v-card-title>Chat</v-card-title>
           
-            </v-card-actions>
-          
-          </v-card>
-        </v-col>
-        
-      </v-expand-transition>
+        <v-card-text>
+          <v-sheet id="sheet" style="border:solid 1px; min-height:150px; max-height:400px" v-chat-scroll>
+            <div id="notification" align="left"></div>
+          </v-sheet>
+        </v-card-text>
+
+        <v-card-actions>
+            
+          <v-text-field dense style="margin:0;"
+            outlined
+            v-model="text" 
+            append-icon="mdi-send"
+            @keydown.enter="send" @click:append="send"
+            label="Type your message">
+          </v-text-field>
+      
+        </v-card-actions>
+      
+      </v-card>
+    </v-dialog>  
     </v-col>
+
+    
+    
+    
+  
       
   </div>
-    <!-- <div class="mx-4 hidden-sm-and-down"></div> -->
 
 </template>
 
@@ -59,7 +60,7 @@ export default {
   data:function(){
     return{
       text:"",
-      expand:true,
+      expand:false,
     }
   },
 

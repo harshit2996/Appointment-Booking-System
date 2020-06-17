@@ -31,14 +31,14 @@
           </v-list-item-content>
         </v-list-item>
         
-        <v-list-item link @click="chat">
+        <!-- <v-list-item link @click="chat">
           <v-list-item-action>
             <v-icon>mdi-chat</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title >Live Chat</v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> -->
        
         <v-list-item link @click="logout">
           <v-list-item-action>
@@ -56,17 +56,16 @@
       <v-toolbar>
         <v-toolbar-title>Dashboard</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon filled fab @click="logout">mdi-plus</v-icon>
-        </v-btn>
-        <v-btn icon>
+        <v-btn icon class="mx-4">
           <v-icon @click="logout">mdi-logout-variant</v-icon>
         </v-btn>
         <theme></theme>
       </v-toolbar>
-      
-      <component v-bind:is="componentName" ></component>
-      
+      <chat-box></chat-box>
+      <keep-alive>
+        <component v-bind:is="componentName" ></component>
+      </keep-alive>
+
       <!-- <div id="notification" class="text-center">Notification</div> -->
       <event-form></event-form>
       <!-- <chat></chat> -->
@@ -94,7 +93,7 @@
     
     created () {
       this.$vuetify.theme.dark = true
-      this.componentName="chat-box"
+      this.componentName="u-events"
     },
 
     mounted(){

@@ -2092,7 +2092,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.$vuetify.theme.dark = true;
-    this.componentName = "online";
+    this.componentName = "events-table";
   },
   methods: {
     Reservations: function Reservations() {
@@ -2574,11 +2574,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       text: "",
-      expand: true
+      expand: false
     };
   },
   mounted: function mounted() {},
@@ -3729,8 +3730,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['currentUser', 'source: String'],
   data: function data() {
@@ -3744,7 +3743,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.$vuetify.theme.dark = true;
-    this.componentName = "chat-box";
+    this.componentName = "u-events";
   },
   mounted: function mounted() {
     Echo.join('online');
@@ -3776,6 +3775,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -40861,7 +40869,11 @@ var render = function() {
                 }
               }
             },
-            [_c("v-icon", [_vm._v("mdi-chat")])],
+            [
+              _vm.expand
+                ? _c("v-icon", [_vm._v("mdi-close")])
+                : _c("v-icon", [_vm._v("mdi-chat")])
+            ],
             1
           )
         ],
@@ -40872,97 +40884,97 @@ var render = function() {
         "v-col",
         [
           _c(
-            "v-expand-transition",
+            "v-dialog",
+            {
+              attrs: { "max-width": "20%", "max-height": "auto" },
+              model: {
+                value: _vm.expand,
+                callback: function($$v) {
+                  _vm.expand = $$v
+                },
+                expression: "expand"
+              }
+            },
             [
               _c(
-                "v-col",
-                { staticClass: "shrink" },
-                [
-                  _c(
-                    "v-card",
+                "v-card",
+                {
+                  directives: [
                     {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.expand,
-                          expression: "expand"
-                        }
-                      ],
-                      attrs: { "max-width": "30%", shaped: "" }
-                    },
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.expand,
+                      expression: "expand"
+                    }
+                  ],
+                  staticStyle: { "z-index": "20" }
+                },
+                [
+                  _c("v-card-title", [_vm._v("Chat")]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
                     [
-                      _c("v-card-title", [_vm._v("Chat")]),
-                      _vm._v(" "),
                       _c(
-                        "v-card-text",
+                        "v-sheet",
+                        {
+                          directives: [
+                            { name: "chat-scroll", rawName: "v-chat-scroll" }
+                          ],
+                          staticStyle: {
+                            border: "solid 1px",
+                            "min-height": "150px",
+                            "max-height": "400px"
+                          },
+                          attrs: { id: "sheet" }
+                        },
                         [
-                          _c(
-                            "v-sheet",
-                            {
-                              directives: [
-                                {
-                                  name: "chat-scroll",
-                                  rawName: "v-chat-scroll"
-                                }
-                              ],
-                              staticStyle: {
-                                border: "solid 1px",
-                                "min-height": "150px",
-                                "max-height": "400px"
-                              },
-                              attrs: { id: "sheet" }
-                            },
-                            [
-                              _c("div", {
-                                attrs: { id: "notification", align: "left" }
-                              })
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-actions",
-                        [
-                          _c("v-text-field", {
-                            staticStyle: { margin: "0" },
-                            attrs: {
-                              dense: "",
-                              outlined: "",
-                              "append-icon": "mdi-send",
-                              label: "Type your message"
-                            },
-                            on: {
-                              keydown: function($event) {
-                                if (
-                                  !$event.type.indexOf("key") &&
-                                  _vm._k(
-                                    $event.keyCode,
-                                    "enter",
-                                    13,
-                                    $event.key,
-                                    "Enter"
-                                  )
-                                ) {
-                                  return null
-                                }
-                                return _vm.send($event)
-                              },
-                              "click:append": _vm.send
-                            },
-                            model: {
-                              value: _vm.text,
-                              callback: function($$v) {
-                                _vm.text = $$v
-                              },
-                              expression: "text"
-                            }
+                          _c("div", {
+                            attrs: { id: "notification", align: "left" }
                           })
-                        ],
-                        1
+                        ]
                       )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-text-field", {
+                        staticStyle: { margin: "0" },
+                        attrs: {
+                          dense: "",
+                          outlined: "",
+                          "append-icon": "mdi-send",
+                          label: "Type your message"
+                        },
+                        on: {
+                          keydown: function($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.send($event)
+                          },
+                          "click:append": _vm.send
+                        },
+                        model: {
+                          value: _vm.text,
+                          callback: function($$v) {
+                            _vm.text = $$v
+                          },
+                          expression: "text"
+                        }
+                      })
                     ],
                     1
                   )
@@ -42290,25 +42302,6 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-list-item",
-                { attrs: { link: "" }, on: { click: _vm.chat } },
-                [
-                  _c(
-                    "v-list-item-action",
-                    [_c("v-icon", [_vm._v("mdi-chat")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-item-content",
-                    [_c("v-list-item-title", [_vm._v("Live Chat")])],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-item",
                 { attrs: { link: "" }, on: { click: _vm.logout } },
                 [
                   _c(
@@ -42344,23 +42337,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-btn",
-                { attrs: { icon: "" } },
-                [
-                  _c(
-                    "v-icon",
-                    {
-                      attrs: { filled: "", fab: "" },
-                      on: { click: _vm.logout }
-                    },
-                    [_vm._v("mdi-plus")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                { attrs: { icon: "" } },
+                { staticClass: "mx-4", attrs: { icon: "" } },
                 [
                   _c("v-icon", { on: { click: _vm.logout } }, [
                     _vm._v("mdi-logout-variant")
@@ -42373,6 +42350,8 @@ var render = function() {
             ],
             1
           ),
+          _vm._v(" "),
+          _c("chat-box"),
           _vm._v(" "),
           _c(_vm.componentName, { tag: "component" }),
           _vm._v(" "),
@@ -42408,39 +42387,58 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-card",
-    {
-      attrs: {
-        color: "green",
-        title: "Events Table",
-        text: "Here is a subtitle for this table"
-      }
-    },
+    { staticClass: "mt-12 mx-auto" },
     [
-      _c("v-data-table", {
-        attrs: { headers: _vm.headers, items: _vm.users },
-        scopedSlots: _vm._u([
-          {
-            key: "item.action",
-            fn: function(ref) {
-              var item = ref.item
-              return [
-                _c(
-                  "v-icon",
-                  {
-                    attrs: { small: "" },
-                    on: {
-                      click: function($event) {
-                        return _vm.showEvents(item)
-                      }
-                    }
-                  },
-                  [_vm._v("mdi-eye")]
-                )
-              ]
-            }
+      _c(
+        "v-sheet",
+        {
+          staticClass: "v-sheet--offset mx-auto",
+          attrs: {
+            color: "green",
+            elevation: "5",
+            height: "auto",
+            "max-width": "calc(100% - 32px)"
           }
-        ])
-      })
+        },
+        [
+          _c("p", { staticClass: "text-center display-1" }, [
+            _vm._v("All Registered Users")
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "v-card-text",
+        { staticClass: "pt-0" },
+        [
+          _c("v-data-table", {
+            attrs: { headers: _vm.headers, items: _vm.users },
+            scopedSlots: _vm._u([
+              {
+                key: "item.action",
+                fn: function(ref) {
+                  var item = ref.item
+                  return [
+                    _c(
+                      "v-icon",
+                      {
+                        attrs: { small: "" },
+                        on: {
+                          click: function($event) {
+                            return _vm.showEvents(item)
+                          }
+                        }
+                      },
+                      [_vm._v("mdi-eye")]
+                    )
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      )
     ],
     1
   )

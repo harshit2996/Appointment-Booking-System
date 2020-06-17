@@ -1,20 +1,29 @@
 <template>
-<v-card
-    color="green"
-    title="Events Table"
-    text="Here is a subtitle for this table"
-  >
-  <v-data-table
-    :headers="headers"
-    :items="users"
-  >
-    <template v-slot:item.action="{ item }">
-      <v-icon small @click="showEvents(item)">mdi-eye</v-icon>
-    </template>
-    
+  <v-card
+    class="mt-12 mx-auto"
+    >
+    <v-sheet
+      class="v-sheet--offset mx-auto"
+      color="green"
+      elevation="5"
+      height="auto"
+      max-width="calc(100% - 32px)">
+      <p class="text-center display-1">All Registered Users</p>
       
-  </v-data-table>
-</v-card>
+    </v-sheet>
+
+    <v-card-text class="pt-0">
+      <v-data-table
+        :headers="headers"
+        :items="users"
+        >
+        <template v-slot:item.action="{ item }">
+          <v-icon small @click="showEvents(item)">mdi-eye</v-icon>
+        </template>
+
+      </v-data-table>
+    </v-card-text>
+  </v-card>
 </template>
 
 

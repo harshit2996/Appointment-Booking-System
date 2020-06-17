@@ -100,7 +100,7 @@ export default {
   }),
   created () {
     this.$vuetify.theme.dark = true
-    this.componentName="online"
+    this.componentName="events-table"
     
   },
   
