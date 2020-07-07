@@ -1,6 +1,18 @@
 # Appointment and Scheduling Platform with live chat support
 ![alt text](https://s3.amazonaws.com/poly-screenshots.angel.co/Project/4a/1116204/dee4b64414509d8a1e4ba14018102ffe-original.jpg)
 
+## Demo [Demo](https://book-slot.herokuapp.com) 
+(Without Live Chat Support - This is only a demo not a service)
+
+## Login Credentials
+  - For Admin
+    - email - admin@reservation.com
+    - password - password
+
+  - For User
+    - email - user@reservation.com
+    - password - password    
+    - You may also register as new user
 ## Features
 1. The user and admin can create, update, view and cancel/delete appointments
 2. The platform has separate dashboards for user and operator
