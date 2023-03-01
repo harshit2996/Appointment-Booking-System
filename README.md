@@ -1,7 +1,7 @@
 # Appointment and Scheduling Platform with live chat support
 ![alt text](https://s3.amazonaws.com/poly-screenshots.angel.co/Project/4a/1116204/dee4b64414509d8a1e4ba14018102ffe-original.jpg)
 
-## Demo [Demo](https://book-slot.herokuapp.com) 
+## Demo [Demo](https://book-slot.harshit-singh.in) 
 (Without Live Chat Support - This is only a demo not a service)
 
 ## Login Credentials
